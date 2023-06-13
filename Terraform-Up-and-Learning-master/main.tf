@@ -42,4 +42,46 @@ resource "aws_security_group" "instance" {
     # 접근 아이피 대역
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+}
+
+# Terraform 에서도 변수 선언이 가능하며, 입/출력 변수가 나뉜다!
+
+# 입력 변수 : variable <NAME> {..}
+variable "NAME" { # 블록 안에 변수의 메타데이터 기술
+  # 입력 변수에는 3개의 매개변수를 입력, 전부 선택적 매개변수
+
+  description = "변수를 설명하는 매개변수, plan & apply 명령 사용 시 변수를 설명해 줌!"
+
+  //type = string
+  //type = number
+  //type = bool
+  //type = list
+  //type = set
+  //type = map
+  //type = list(string)
+  //type = set(number)
+  //type = map(bool)
+  //type = map(any)
+  //type = list(any)
+  //type = set(any)
+  //type = tuple([string])
+  type = tuple([number,string,bool,map(string),list(any)])
+  //type = object({
+  //  name = string
+  //  age = number
+  //  tags = list(any)
+  //  enabled = bool
+  //})
+
+  // 변수에 값이 주어지지않을 경우의 기본 값, object 타입의 경우, { .. } 코드 블록을 추가하여 기본 값 설정
+  //default = {
+  //  name = "soomin"
+  //  age = 31
+  //  tags = [1,7,"String",true]
+  //  enabled = true
+  //}
+
+  default = ([31, "soomin", true, {key="value1"},[true,31,"test"]])
+
 }
